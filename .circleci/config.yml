@@ -7,6 +7,11 @@ jobs:
       - checkout
       - run: echo "A first hello"
       - run: sleep 25
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+           path: /tmp/test-results
+           destination: test_results
   two:
     docker:
       - image: circleci/python:2.7.15-browsers
@@ -14,11 +19,19 @@ jobs:
       - checkout
       - run: echo "A more familiar hi"
       - run: sleep 15
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+           path: /tmp/test-results
+           destination: test_results  
+      
 workflows:
   version: 2
   one_and_two:
     jobs:
       - one
       - two
+      
+      
 
 
